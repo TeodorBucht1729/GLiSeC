@@ -180,11 +180,7 @@ def intersect_polygon(a: np.poly1d, r, s, sample_points, curr_poly, rho, scale_f
         while poly_i >= 1:
             one_path_clip.append(other_poly[poly_i][0])
             poly_i -= 1
-        # if rho > 1.0:
-        #     plot_poly = []
-        #     plot_poly.extend(other_poly)
-        #     plot_poly.extend([pyclipper.scale_to_clipper(a_disc, scale_factor)])
-        #     plot_polygons(plot_poly, "offset polygon")
+
 
         pc.AddPath(one_path_clip, pyclipper.PT_CLIP, True)
         result = pc.Execute(pyclipper.CT_INTERSECTION, pyclipper.PFT_NONZERO, pyclipper.PFT_NONZERO)
@@ -226,8 +222,6 @@ def find_limit_set(a: np.poly1d, r, s, nbr_sample_points, nbr_rhos, manual_rho_b
     sample_points = np.linspace(0, 2*np.pi, nbr_sample_points)
     sample_points = sample_points[:-1]
 
-    # plot average a_derivative
-    # plot_average_derivative(a, r, s, sample_points, area_check_rhos)
 
     delta_offset = 2*np.pi / nbr_sample_points
 
@@ -344,7 +338,7 @@ def find_limit_set(a: np.poly1d, r, s, nbr_sample_points, nbr_rhos, manual_rho_b
         plt.grid(True)
         if nbr_vertices_save_name is not None:
             plt.savefig(nbr_vertices_save_name)
-        # ax.set_aspect('equal')
+
 
 
     ret = pyclipper.scale_from_clipper(intersection, scale_factor)
@@ -691,6 +685,9 @@ def sample_compute_error_two_sweeps():
     print("Number intersections used", nbr_intersections)
 
 def sample_runs_article():
+    """
+    This functions represents the main example studied in the paper. 
+    """
     global nbr_intersections
     nbr_intersections = 0
     r = 1
